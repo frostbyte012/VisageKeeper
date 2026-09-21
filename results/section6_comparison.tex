@@ -1,0 +1,18 @@
+\section{Comparison with Earlier Works}
+
+What matters for a defense is not how well it scores on clean faces, but
+what is left once the attacker knows it is there. Table~\ref{tab:baselines}
+tests every method on LFW against the same adaptive attacker. Feature
+squeezing tells the story. On clean faces it reaches $94.9\%$, and against
+a simple fixed attack it even beats the undefended model ($31.8$ vs
+$20.0$). Then the attacker adapts to it, and it drops to $0.0$. Every
+other purification defense does the same, including our own frequency
+filter: strong at first, then nothing.
+
+\textit{VisageKeeper} is the only one left standing, holding $25.8\%$
+where the other five all reach zero, and it returns a proof instead of a
+score. This costs us: clean accuracy falls from $97.1\%$ to $91.8\%$, and
+the protection is uneven, stopping fake matches about half the time but
+not hiding. The denoiser is what makes it work. Noise alone scores $49.5$,
+but only because it starts at a coin flip ($52.7\%$) and has nothing left
+to lose.

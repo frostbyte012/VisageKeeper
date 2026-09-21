@@ -1,0 +1,3 @@
+defense,attack,ver_acc,robust_tar,asr_dodging,asr_impersonation,sigma,tar_at_far
+visagekeeper_smoothed,clean,0.5268333333333334,0.5003333333333333,,,0.5,"{""0.01"": {""tar"": 0.012333333333333333, ""threshold"": 0.3305186629295349}, ""0.001"": {""tar"": 0.0016666666666666668, ""threshold"": 0.45291566848754883}}"
+visagekeeper_smoothed,pgd_eot,0.5268333333333334,0.495,1.0,0.01,0.5,"{""0.01"": {""tar"": 0.012333333333333333, ""threshold"": 0.3305186629295349}, ""0.001"": {""tar"": 0.0016666666666666668, ""threshold"": 0.45291566848754883}}"

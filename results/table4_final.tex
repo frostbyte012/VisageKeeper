@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\caption{Robustness under adaptive attack on LFW (FaceNet/VGGFace2,
+$\ell_\infty$, $\epsilon=8/255$). Purification defenses collapse; only
+certified smoothing survives. Clean accuracy is shown alongside, because
+the ablation's $49.5$ comes from already being at chance.}
+\label{tab:baselines}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Method} & \textbf{Clean} & \textbf{Adaptive} & \textbf{Proof} \\
+\midrule
+No defense                       & 97.1 & 0.0  & \ding{55} \\
+Feature squeezing~\cite{xu2018feature} & 97.0 & 0.0  & \ding{55} \\
+Noise-injection layer            & 96.8 & 0.0  & \ding{55} \\
+Iterative purification           & 96.1 & 0.0  & \ding{55} \\
+Ours: frequency filter only      & 97.0 & 0.0  & \ding{55} \\
+\midrule
+\textbf{VisageKeeper}            & \textbf{91.8} & \textbf{25.8} & \ding{51} \\
+\quad\textit{no denoiser}        & 52.7 & 49.5 & \ding{51} \\
+\bottomrule
+\end{tabular}
+\end{table}

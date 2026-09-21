@@ -1,0 +1,2 @@
+defense,attack,threat,ver_acc,tar_at_far,asr_dodging,asr_impersonation,robust_tar,diffusion_t,n_denoise_steps,psnr,ssim,pert_l2,pert_linf,latency_ms,fps,fpga_lut,fpga_dsp,fpga_bram,power_w,energy_mj,bitwidth
+frpure_ours_unet,fgsm,Linf_8/255_whitebox_adaptive,0.97,"{""0.01"": {""tar"": 0.9483333333333334, ""threshold"": 0.37513864040374756}, ""0.001"": {""tar"": 0.8953333333333333, ""threshold"": 0.530886173248291}}",0.985,0.545,0.235,nan,-1,30.089073959084267,0.9898767534760681,122.55680976447353,0.03137257695198059,12.827655200380832,77.95656995600503,-1,-1,-1,nan,nan,-1

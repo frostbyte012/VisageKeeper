@@ -1,0 +1,35 @@
+# FRPure -- requirements
+# -------------------------------------------------------------------
+# Core (CPU-safe; used by the metrics harness and tests)
+numpy>=1.24
+scipy>=1.10
+scikit-image>=0.21          # faithful MSSIM on the GPU box
+pyyaml>=6.0
+pandas>=2.0                 # results tables -> CSV
+tqdm>=4.65
+timm
+pillow
+
+# --- Deep learning stack (install the wheel matching YOUR cuda) -----
+# torch / torchvision  -- pick ONE index URL for your server's CUDA:
+#   CUDA 11.8 : pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+#   CUDA 12.1 : pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+#   CUDA 12.4 : pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+# (left unpinned here so we don't fight your driver)
+
+# --- Face recognition backbones ------------------------------------
+# Primary target = ArcFace (IR-SE50 / r100). insightface gives weights + alignment.
+insightface>=0.7.3
+onnxruntime-gpu>=1.16        # insightface inference (use onnxruntime if CPU-only)
+facenet-pytorch>=2.5.3       # FaceNet (InceptionResnetV1) second backbone
+
+# --- Defenses --------------------------------------------------------
+# diffusers/transformers only needed for the DiffPure-adapted BASELINE.
+diffusers>=0.27
+transformers>=4.40
+lpips>=0.1.4                 # perceptual fidelity metric
+
+# --- Adaptive-attack tooling ----------------------------------------
+# We implement PGD+EOT / BPDA+EOT ourselves (so we control gradient flow
+# through the defense), and cross-check with AutoAttack:
+git+https://github.com/fra31/auto-attack.git

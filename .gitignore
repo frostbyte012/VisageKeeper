@@ -1,0 +1,27 @@
+# data (download separately - see README)
+DATA/
+*.tgz
+*.tar.gz
+*.zip
+
+# large regenerable artefacts
+hls_both/vit/vit_weights.bin
+*.whl
+
+# HLS / Vivado build output
+*_proj/
+solution*/
+*.log
+*.jou
+vivado*.str
+.Xil/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# os
+.DS_Store

@@ -1,0 +1,71 @@
+VisageKeeper -- BOTH denoisers, Vitis HLS on ZCU104
+====================================================
+
+Synthesizes the DnCNN and the ViT at Float32 / Fixed16 / Fixed8, both at
+112x112 and 100 MHz, so Table III is a like-for-like comparison.
+
+SETUP
+-----
+  Unzip to e.g.  C:\vk_hls    (gives C:\vk_hls\hls_both\{dncnn,vit})
+
+  cd C:\vk_hls\hls_both
+  $env:PATH = "C:\Xilinx\Vitis_HLS\2026.1\bin;" + $env:PATH
+       (adjust version to what you installed)
+
+QUICK GATE FIRST (5 min) -- confirms files arrived intact
+---------------------------------------------------------
+  cd dncnn
+  vitis_hls -f ..\gate_dncnn.tcl
+        expect:  max abs err = 7.7486e-07   PASS
+  cd ..\vit
+  vitis_hls -f ..\gate_vit.tcl
+        expect:  max abs err = 8.3745e-04   PASS
+  cd ..
+
+  If either differs, STOP -- the .bin files were corrupted in transfer
+  (use the zip, not a text-mode copy).
+
+FULL RUN (2-5 hours, unattended)
+--------------------------------
+  vitis_hls -f run_all.tcl
+  python make_table3.py        > prints paste-ready Table III rows
+
+  No python? Send back:
+     vit\vit_16\sol\syn\report\vit_denoiser_top_csynth.rpt
+
+
+EXPECTED ACCURACY  (verified on host against the real trained weights)
+----------------------------------------------------------------------
+           DnCNN          ViT
+  Float32  7.7486e-07     8.3745e-04     both PASS
+  Fixed16  8.5584e-03     4.3351e-02     both usable
+  Fixed8   4.5656e-01     1.0000e+00     ViT UNUSABLE
+
+  Fixed8 destroys the ViT output. It degrades the DnCNN badly too, which is
+  consistent with Fixed8 being the weakest row in your published table.
+  Report the ViT Fixed8 row as failing accuracy, not as an operating point.
+
+
+IF THE ViT OVERFLOWS BRAM
+-------------------------
+  Lower the partition factors first -- bigger lever than image size, and
+  verified to give bit-identical results:
+      edit vit\vit_denoiser_hls.h,  PF_TOK and PF_W:  8  ->  4
+
+  Only if that is not enough, switch to 96x96:
+      copy vit\vit_denoiser_hls_96.h  vit\vit_denoiser_hls.h
+      python vit\export_vit_weights.py --size 96 --outdir vit
+  A 96x96 ViT number is NOT comparable to a 112x112 DnCNN number -- say so
+  in the caption if you go that route.
+
+
+COST (analytic, for the text)
+-----------------------------
+  DnCNN  1.03 GFLOPs   0.02 M params
+  ViT    3.72 GFLOPs   1.21 M params      (3.6x the compute)
+
+
+POWER
+-----
+  HLS gives no watts. run_all.tcl runs export_design, so afterwards open the
+  exported IP in Vivado, implement, and Report Power.
