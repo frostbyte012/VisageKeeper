@@ -1,4 +1,4 @@
-# (VisageKeeper) Denoising Isn't Enough: Certified Face Recognition by Attenuation Aware Hardware Acceleration
+# Denoising Isn't Enough: Certified Face Recognition by Attenuation Aware Hardware Acceleration
 
 > **Paper:** *Denoising Isn't Enough: Certified Face Recognition by Attenuation Aware Hardware Acceleration*
 
@@ -11,7 +11,7 @@
 Purification defenses look strong until the attacker adapts to them. We evaluated
 five under one identical adaptive protocol and **every one collapsed to 0.0%**.
 
-VisageKeeper takes a different route: add calibrated Gaussian noise, denoise,
+We all our work VisageKeeper. It takes a different route: add calibrated Gaussian noise, denoise,
 vote over the noisy copies, and return a **certified radius** inside which the
 verification decision provably cannot change.
 
