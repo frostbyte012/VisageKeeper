@@ -1,14 +1,8 @@
-# VisageKeeper: Denoising Isn't Enough
+# (VisageKeeper) Denoising Isn't Enough: Certified Face Recognition by Attenuation Aware Hardware Acceleration
 
-Certified adversarial robustness for face recognition, with an FPGA-accelerated
-smoothed verifier.
+> **Paper:** *Denoising Isn't Enough: Certified Face Recognition by Attenuation Aware Hardware Acceleration*
 
-> **Paper:** *VisageKeeper: Denoising Isn't Enough* (submitted to DATE 2027)
-
-<!-- ─────────────────────────────────────────────────────────────────────
-     TODO: add the system overview figure here
-     ![System overview](figures/overview.png)
-     ──────────────────────────────────────────────────────────────────── -->
+![Motivation](https://raw.githubusercontent.com/frostbyte012/VisageKeeper/main/figures/Diagrams%20Compressed/Motivation_Diagram.jpg)
 
 ---
 
@@ -52,17 +46,15 @@ That row is what shows the denoiser is doing the work, not the noise.
 4. **Certification is affordable.** Alpha-spending stops the vote once the
    majority is settled, with the guarantee unchanged.
 
-<!-- ─────────────────────────────────────────────────────────────────────
-     TODO: attenuation-law figure
-     ![Attenuation law](figures/attenuation.png)
-     ──────────────────────────────────────────────────────────────────── -->
+![System overview](https://raw.githubusercontent.com/frostbyte012/VisageKeeper/main/figures/Diagrams%20Compressed/softwarediagram.jpg)
+
 
 ---
 
 ## Install
 
 ```bash
-git clone https://github.com/<you>/VisageKeeper.git
+git clone https://github.com/frostbyte012/VisageKeeper.git
 cd VisageKeeper
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
@@ -219,10 +211,8 @@ python hls_both/vit/export_vit_weights.py   # -> vit_weights.bin (~6.9 MB)
   Without switching-activity (SAIF) data such numbers are estimates, and should
   be labelled as such.
 
-<!-- ─────────────────────────────────────────────────────────────────────
-     TODO: FPGA architecture diagram
-     ![Accelerator architecture](figures/accelerator.png)
-     ──────────────────────────────────────────────────────────────────── -->
+![FPGA accelerator architecture](https://raw.githubusercontent.com/frostbyte012/VisageKeeper/main/figures/Diagrams%20Compressed/VisageKeeper-hardwarediagram%20%282%29.jpg)
+
 
 ---
 
@@ -232,12 +222,13 @@ python hls_both/vit/export_vit_weights.py   # -> vit_weights.bin (~6.9 MB)
 frpure/
   attacks/        FGSM, PGD, BPDA, EOT, smoothed-classifier attack
   defenses/       smoothing (SmoothedVerifier), baselines, frpure filter
-  eval/           runner.py (matrix), metrics.py, certify
+  eval/           runner.py (matrix), metrics.py
   models/         FaceNet / ArcFace backbone wrappers
   data/           LFW pair loading
 scripts/
   eval_smoothed_table4.py   VisageKeeper + ablation evaluation
   make_table4.py            builds Table IV
+  run_certify.py            certification (radius, certified accuracy)
   prepare_data.py           MTCNN alignment
 hls_both/         Vitis HLS sources for both denoisers
 section_codes/    figure-generation scripts
@@ -266,17 +257,6 @@ tests/
   point between runs. Attack subsets use a fixed seed (0).
 
 ---
-
-## Citation
-
-```bibtex
-@inproceedings{visagekeeper2027,
-  title     = {VisageKeeper: Denoising Isn't Enough},
-  author    = {TODO},
-  booktitle = {Design, Automation and Test in Europe (DATE)},
-  year      = {2027}
-}
-```
 
 ### Methods we build on
 
